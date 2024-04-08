@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/forget_password"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="147dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginBottom="42dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_w_name" />
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вход в приложение"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:layout_alignLeft="@+id/login_layout"
+        android:layout_below="@+id/imageView"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_layout"
+        android:layout_width="342dp"
+        android:layout_height="59dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/welcome_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Логин"
+            android:textColor="@color/black"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pass_layout"
+        android:layout_width="342dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/login_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Пароль"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/forget_pass"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignStart="@+id/login_layout"
+        android:text="@string/forget_pass"
+        android:layout_below="@+id/pass_layout"
+        android:textColor="@color/link_text"
+        />
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="184dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#4D7D96"
+        android:textColor="@color/white"
+        android:text="Войти"
+        android:textSize="20sp"
+        app:cornerRadius="16dp"
+        android:layout_below="@+id/forget_pass"
+        android:layout_centerHorizontal="true"/>
+
+    <LinearLayout
+        android:id="@+id/signup_layout"
+        android:layout_below="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/login_tg_btn">
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ещё нет аккаунта?"
+            android:layout_marginEnd="3dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/signup_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_acc"
+            android:textColor="@color/link_text"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_tg_btn"
+        android:layout_width="349dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="74dp"
+        android:backgroundTint="#54A9EB"
+        android:drawableLeft="@drawable/telegram_icon"
+        android:text="@string/login_with_telegram"
+        android:textSize="8pt"
+        android:fontFamily="@font/montserrat"
+        android:layout_below="@+id/signup_layout"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

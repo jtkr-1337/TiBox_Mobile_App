@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#74B3D4"/>
+            <corners android:radius="20.0dip"/>
+            <size
+                android:width="56dp"
+                android:height="56dp"
+                />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/calend_on"
+        android:width="31.88dp"
+        android:height="36dp"
+        android:left="12.06dp"
+        android:top="10dp"
+        />
+</layer-list>

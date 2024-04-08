@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height='wrap_content'
+        android:fontFamily="@font/overpasssemibold"
+        android:text="Предметы"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/subjects"
+        android:layout_below="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/subj1"
+            android:layout_width="312dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/outer_frame_border"
+            android:drawableLeft="@drawable/subject_img"
+            android:drawableRight="@drawable/right_arrow"
+            android:fontFamily="@font/khularegular"
+            android:hint="Дискретная математика"
+            android:paddingLeft="12dp"
+            android:paddingTop="20dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="20dp"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/subj2"
+            android:layout_width="312dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/outer_frame_border"
+            android:drawableLeft="@drawable/subject_img"
+            android:drawableRight="@drawable/right_arrow"
+            android:fontFamily="@font/khularegular"
+            android:hint="Математический анализ"
+            android:paddingLeft="12dp"
+            android:paddingTop="20dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="20dp"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/subj3"
+            android:layout_width="312dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/outer_frame_border"
+            android:drawableLeft="@drawable/subject_img"
+            android:drawableRight="@drawable/right_arrow"
+            android:fontFamily="@font/khularegular"
+            android:hint=" Математическое и имитационное моделирование"
+            android:paddingLeft="12dp"
+            android:paddingTop="20dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="20dp"
+            android:textColorHint="#000"
+            android:textSize="14sp"/>
+    </LinearLayout>
+</RelativeLayout>
+
+
+
+

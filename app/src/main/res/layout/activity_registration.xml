@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/registration_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/registration_img"
+        android:layout_marginTop="50dp"
+        android:layout_alignLeft="@+id/layout1" />
+
+    <TextView
+        android:id="@+id/personal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registration_img"
+        android:layout_marginTop="14dp"
+        android:text="Личные данные"
+        android:layout_alignLeft="@+id/layout1"
+        android:textSize="8pt"
+        android:fontFamily="@font/khularegular"
+        />
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="342dp"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/personal"
+        android:layout_centerHorizontal="true">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/khularegular">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:background="@drawable/change_login_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="логин"
+                android:fontFamily="@font/khularegular"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="6dp"
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/khularegular">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="пароль"
+                android:background="@drawable/change_login_bg"
+                android:fontFamily="@font/khularegular"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="6dp"
+            android:id="@+id/password2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/khularegular">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="повторите пароль"
+                android:background="@drawable/change_login_bg"
+                android:fontFamily="@font/khularegular"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/univerity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout1"
+        android:layout_alignLeft="@+id/university_layout"
+        android:layout_marginTop="14dp"
+        android:text="Информация об обучении"
+        android:textSize="8pt"
+        android:fontFamily="@font/khularegular"
+        />
+
+    <LinearLayout
+        android:id="@+id/university_layout"
+        android:layout_width="342dp"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/univerity">
+
+        <Spinner
+            android:id="@+id/institutes"
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/change_login_bg"
+            android:fontFamily="@font/khularegular" />
+
+        <Spinner
+            android:id="@+id/groups"
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/change_login_bg"
+            android:fontFamily="@font/khularegular"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signup_btn"
+        android:layout_width="300dp"
+        android:layout_height="61dp"
+        android:layout_below="@id/university_layout"
+        android:layout_marginTop="13dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#4D7D96"
+        android:textColor="@color/white"
+        android:text="Зарегестрироваться"
+        android:textSize="16dp"
+        app:cornerRadius="16dp"
+        android:fontFamily="@font/montserrat"/>
+
+
+</RelativeLayout>

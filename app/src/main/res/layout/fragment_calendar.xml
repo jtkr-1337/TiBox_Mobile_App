@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/slidingPanel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="20dp"
+    sothree:umanoShadowHeight="4dp"
+    sothree:umanoFadeColor="@color/white50"
+    >
+    <RelativeLayout
+        android:id="@+id/bottomPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <RelativeLayout
+            android:id="@+id/weekPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#C6E3F2">
+
+            <TextView
+                android:id="@+id/week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Верхняя неделя"
+                android:textSize="18sp"
+                android:layout_marginTop="16dp"
+                android:layout_alignLeft="@+id/buttons" />
+
+
+            <GridLayout
+                android:id="@+id/buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:columnCount="7"
+                android:orientation="horizontal"
+                android:useDefaultMargins="true"
+                android:layout_below="@+id/week"
+                android:layout_centerHorizontal="true">
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button1"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="1\nпн"
+                    android:onClick="onClickFragment"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button2"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="2\nвт" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button3"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="3\nср" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button4"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="4\nчт" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button5"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="5\nпт" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button6"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="6\nсб" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button7"
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_button1"
+                    android:text="7\nвс" />
+
+            </GridLayout>
+
+            <TextView
+                android:layout_below="@+id/buttons"
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="Вторник, 12 Июля 2022  "
+                android:layout_centerHorizontal="true"
+                android:drawableRight="@drawable/arrow_down"
+                android:clickable="true"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/subjectsList"
+            android:layout_below="@+id/weekPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="@drawable/divider"
+            android:showDividers="middle"
+            >
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/calendar_widget"
+        >
+        <View
+            android:id="@+id/separator"
+            android:layout_width="120dp"
+            android:layout_height="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/separator" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/separator"
+            android:layout_centerInParent="true"
+            android:theme="@style/CalenderViewCustom"
+            android:dateTextAppearance="@style/CalenderViewDateCustomText"
+            android:weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+            />
+
+    </RelativeLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

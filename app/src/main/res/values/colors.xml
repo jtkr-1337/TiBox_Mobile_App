@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white50">#80FFFFFF</color>
+    <color name="red">#FFAF0F0F</color>
+    <color name="grey">#FFAAAAAA</color>
+    <color name="grey20">#59000000</color>
+    <color name="calendar_back">#FFC6E3F2</color>
+    <color name="calendar_current_day">#FF85C2E4</color>
+    <color name="tabbar_color">#FFC6E3F2</color>
+    <color name="link_text">#2452DA</color>
+</resources>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".settingsFragment"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/mainLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProfileActivity"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Профиль"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+
+        <RelativeLayout
+            android:id="@+id/photoStatusLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="25dp"
+            >
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImage"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@android:color/transparent"
+                app:strokeWidth="1dp"
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:src="@drawable/profile_image"
+                android:layout_marginBottom="10dp"
+                />
+            <TextView
+                android:layout_below="@+id/profileImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Поставьте статусa"
+                android:layout_centerHorizontal="true"
+                android:textSize="12dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nameFieldsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/photoStatusLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fstNameFieldLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="0dp"
+                app:boxCornerRadiusBottomEnd="0dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fstNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Имя"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sndNameFieldLayout"
+                android:layout_below="@+id/fstNameFieldLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:boxCornerRadiusTopStart="0dp"
+                app:boxCornerRadiusTopEnd="0dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sndNameField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Фамилия"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/nameHint"
+                android:layout_below="@+id/sndNameFieldLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Укажите имя и загрузите фотографию профиля"
+                android:layout_centerHorizontal="true"
+                android:textSize="10dp"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/changeButtonsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameFieldsLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bChangeLogin"
+                android:layout_width="312dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:paddingStart="10dp"
+                android:text="Сменить логин"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:background="@drawable/change_login_bg"
+                android:drawableRight="@drawable/right_arrow"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_below="@id/bChangeLogin"
+                android:id="@+id/bChangePass"
+                android:layout_width="312dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/change_login_bg"
+                android:text="Сменить пароль"
+                android:textColor="@color/black"
+                android:textAlignment="viewStart"
+                android:paddingLeft="10dp"
+                android:drawableRight="@drawable/right_arrow"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/logoutButtonLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/changeButtonsLayout"
+            android:layout_centerHorizontal="true">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bLogout"
+                android:layout_width="184dp"
+                android:layout_height="52dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/logout_bg"
+                android:text="Выйти"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</FrameLayout>

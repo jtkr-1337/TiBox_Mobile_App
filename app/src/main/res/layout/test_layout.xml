@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tabbar"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="0dp"
+    android:background="@color/tabbar_color"
+    android:columnCount="9"
+    >
+    <ImageButton
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/settings_button_off"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/subjectsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/subjects_button_off"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/calendarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/calend_button_off"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageButton
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:id="@+id/profileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/prof_button_on"
+        android:background="@android:color/transparent"
+        />
+
+</GridLayout>
