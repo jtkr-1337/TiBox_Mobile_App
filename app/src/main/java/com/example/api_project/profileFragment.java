@@ -48,7 +48,7 @@ public class profileFragment extends Fragment implements View.OnClickListener {
         int id = v.getId();
 
         if (id==R.id.bLogout){
-            LoginActivity.login = false;
+            LoginActivity.logged_in = false;
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
         }else if (id==R.id.bChangeLogin){

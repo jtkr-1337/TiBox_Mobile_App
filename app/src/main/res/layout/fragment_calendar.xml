@@ -143,9 +143,22 @@
                 />
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/error_msg"
+            android:layout_width="wrap_content"
+            android:layout_height='wrap_content'
+            android:fontFamily="@font/overpasssemibold"
+            android:text="Ошибка подключения к серверу"
+            android:textColor="@color/red"
+            android:textSize="15dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/weekPanel"
+            android:visibility="gone"
+            />
+
         <LinearLayout
             android:id="@+id/subjectsList"
-            android:layout_below="@+id/weekPanel"
+            android:layout_below="@+id/error_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

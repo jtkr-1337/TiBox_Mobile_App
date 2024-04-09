@@ -7,9 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
@@ -19,8 +17,11 @@ import android.widget.TextView;
 
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -32,9 +33,11 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     RelativeLayout topPanel, bottomPanel;
     LinearLayout subjectsListLayout;
     CalendarView calendar;
-    TextView current_date;
+    TextView current_date, error;
     AppCompatButton[] days_of_week_buttons = new AppCompatButton[7];
     DateSubjectGenerator[] subjects_list;
+
+    String date;
 
 
     @Override
@@ -53,40 +56,49 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         subjectsListLayout = v.findViewById(R.id.subjectsList);
 
         bottomPanel = v.findViewById(R.id.bottomPanel);
-        bottomPanel.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                try{
-                    slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-                } catch (Exception e){
-                    System.out.println("bottomPanel");
-                    System.out.println(e.toString());
-                }
-                return true;
-            }
-        });
-
-        current_date = v.findViewById(R.id.date);
-        current_date.setOnClickListener(this);
-        setCurrentDay();
-
-
-        topPanel = v.findViewById(R.id.topPanel);
-
-        calendar = v.findViewById(R.id.calendarView);
-        calendar.setOnDateChangeListener(this);
-
-
-        subjects_list = new DateSubjectGenerator[4];
-        for (int i=0; i<4; i++) {
-            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), this.subjectsListLayout, i, slidingPanel, getActivity());
-        }
+        bottomPanel.setOnClickListener(this);
 
         fillWeekButtonsList();
         for (int i=0; i<7; i++){
             days_of_week_buttons[i].setOnClickListener(this);
         }
 
+        error = v.findViewById(R.id.error_msg);
+
+        current_date = v.findViewById(R.id.date);
+        current_date.setOnClickListener(this);
+        setCurrentDay();
+
+        topPanel = v.findViewById(R.id.topPanel);
+
+        calendar = v.findViewById(R.id.calendarView);
+        calendar.setOnDateChangeListener(this);
+
+        MainActivity.api.getTimetableDay(this.date, new React(){
+            @Override
+            public void reaction(JSONObject data) throws JSONException {
+                JSONArray lessons = data.getJSONObject("response").getJSONArray("lessons");
+                subjects_list = new DateSubjectGenerator[lessons.length()];
+                for (int i=0; i<lessons.length(); i++){
+                    JSONObject lesson = lessons.getJSONObject(i);
+
+                    String cab = lesson.getString("info");
+                    JSONArray up = lesson.getJSONObject("time").getJSONArray("up");
+                    JSONArray down = lesson.getJSONObject("time").getJSONArray("down");
+                    String time = String.valueOf(up.getInt(0)) + ":" + String.valueOf(up.getInt(1))
+                            + "-" + String.valueOf(down.getInt(0)) + ":" + String.valueOf(down.getInt(1));
+                    String prof = lesson.getJSONArray("teacher").getJSONObject(0).getString("name");
+                    String name = lesson.getString("name");
+
+                    subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), i, cab, time, prof, name);
+                }
+            }
+
+            @Override
+            public void FailedRequest(int status){
+                error.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void fillWeekButtonsList() {
@@ -176,12 +188,14 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         String[] months = createMonthsList();
 
         String day_week = new SimpleDateFormat("u", Locale.getDefault()).format(new Date());
-        String day = new SimpleDateFormat("d", Locale.getDefault()).format(new Date());
-        String month = new SimpleDateFormat("M", Locale.getDefault()).format(new Date());
+        String day = new SimpleDateFormat("dd", Locale.getDefault()).format(new Date());
+        String month = new SimpleDateFormat("MM", Locale.getDefault()).format(new Date());
         String year = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
 
-        String data = weeks[Integer.parseInt(day_week)] + ", " + day + " " + months[Integer.parseInt(month)-1] + " " + year;
-        current_date.setText(data);
+        String date = weeks[Integer.parseInt(day_week)] + ", " + day + " " + months[Integer.parseInt(month)-1] + " " + year;
+        current_date.setText(date);
+
+        this.date = year + "-" + month + "-" + day;
     }
     private String getDateText(int year, int month, int dayOfMonth){
         String[] weeks = createWeekList();

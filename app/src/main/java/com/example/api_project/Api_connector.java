@@ -11,7 +11,7 @@ import java.util.Objects;
 
 class React{
     public React(){}
-    public void reaction(JSONObject data){
+    public void reaction(JSONObject data) throws JSONException {
         // all action
     }
 
@@ -44,7 +44,7 @@ public class Api_connector {
             public void reaction(JSONObject data){
                 getAuthToken(new React(){
                     @Override
-                    public void reaction(JSONObject data){ // это значит всё успешно завершилось
+                    public void reaction(JSONObject data) throws JSONException { // это значит всё успешно завершилось
                         user_token = data.getJSONObject("response").getString("auth_token");
                     }
 

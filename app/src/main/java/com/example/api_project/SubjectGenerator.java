@@ -9,24 +9,25 @@ import android.widget.RelativeLayout;
 
 import androidx.appcompat.widget.AppCompatButton;
 
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
 public class SubjectGenerator {
     final int id_const = 133755668;
-    int id;
+    int id_rl, id_lesson;
     RelativeLayout rl;
     AppCompatButton b;
     public SubjectGenerator(LayoutInflater l, View v, String t, int id, Activity a){
         l.inflate(R.layout.template_subject, (ViewGroup) v);
         rl = v.findViewById(R.id.subject);
-        this.id = id_const + id;
-        rl.setId(this.id);
+        this.id_rl = id_const + id;
+        this.id_lesson = id;
+        rl.setId(this.id_rl);
         b = (AppCompatButton) rl.getChildAt(0);
         b.setHint(t);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                a.startActivity(new Intent(a, SubjectInfoActivity.class));
+                Intent i = new Intent(a, SubjectInfoActivity.class);
+                i.putExtra("lesson_id", id_lesson);
+                a.startActivity(i);
             }
         });
     }

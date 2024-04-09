@@ -40,7 +40,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         if (checkFields()) {
-            LoginActivity.login = true;
+            LoginActivity.logged_in = true;
             finish();
         }
     }

@@ -22,7 +22,7 @@ public class DateSubjectGenerator implements View.OnClickListener {
     LinearLayout leftPanel, centerPanel;
     TextView cab, time, prof, subj;
     SlidingUpPanelLayout panel;
-    public DateSubjectGenerator(LayoutInflater l, View v, int id, SlidingUpPanelLayout p, Activity a){
+    public DateSubjectGenerator(LayoutInflater l, View v, SlidingUpPanelLayout p, Activity a, int id, String str_cab, String str_time, String str_prof, String str_name){
         this.a = a;
         panel = p;
         l.inflate(R.layout.template_subject_calendar, (ViewGroup) v);
@@ -30,25 +30,26 @@ public class DateSubjectGenerator implements View.OnClickListener {
         this.id = id_const + id;
         rl.setId(this.id);
 
-        setText();
-
         leftPanel = (LinearLayout) rl.getChildAt(0);
         leftPanel.setOnClickListener(this);
+
         cab = (TextView) leftPanel.getChildAt(0);
+        cab.setText(str_cab);
         cab.setOnClickListener(this);
         time = (TextView) leftPanel.getChildAt(1);
+        time.setText(str_time);
         time.setOnClickListener(this);
+
 
         centerPanel = (LinearLayout) rl.getChildAt(1);
         centerPanel.setOnClickListener(this);
+
         subj = (TextView) centerPanel.getChildAt(0);
+        subj.setText(str_name);
         subj.setOnClickListener(this);
         prof = (TextView) centerPanel.getChildAt(1);
+        prof.setText(str_prof);
         leftPanel.setOnClickListener(this);
-    }
-
-    private void setText(){
-
     }
 
     @Override

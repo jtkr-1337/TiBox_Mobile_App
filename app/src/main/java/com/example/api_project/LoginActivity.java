@@ -4,19 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button login_btn, login_with_tg_btn;
-    TextView forget_pass, signup_btn;
+    TextView forget_pass, signup_btn, login_error, pass_error;
     TextInputEditText tf_login, tf_pass;
-    public static boolean login;
+    public static boolean logged_in;
+    Api_connector api;
 
 
     @Override
@@ -24,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initalVars();
-        if (!login){
+        if (!logged_in){
             setMethodsToButtons();
         }else {
             startActivity(new Intent(this, MainActivity.class));
@@ -33,13 +34,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void checkLogin() {
-        String login_txt = tf_login.getText().toString();
-        String pass_txt = tf_pass.getText().toString();
-        if (!login_txt.isEmpty() && !pass_txt.isEmpty()) {
-            login = true;
-        } else{
-            login = false;
+    private boolean checkLogin() {
+        String regex_login = "^[a-zA-Z0-9-*]{16}\\b";
+        String regex_pass = "^\\b[A-Za-z0-9._!]{8,}\\b";
+
+        Pattern pattern_login = Pattern.compile(regex_login);
+        Pattern pattern_pass = Pattern.compile(regex_pass);
+
+        String l_txt = tf_login.getText().toString();
+        String p_txt = tf_pass.getText().toString();
+        if (!pattern_login.matcher(l_txt).matches()){
+            login_error.setText("Логин должен содержать только буквы латинского алфавита, цифры и не должен быть длинее 16 символов");
+            login_error.setVisibility(View.VISIBLE);
+            return false;
+        }else if (!pattern_pass.matcher(l_txt).matches()){
+            pass_error.setText("Пароль должен содержать только буквы латинского алфавита, цифры и не должен быть короче 8 символов");
+            pass_error.setVisibility(View.VISIBLE);
+            return false;
+        }else{
+            return true;
         }
     }
 
@@ -49,6 +62,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         forget_pass = findViewById(R.id.forget_pass);
         signup_btn = findViewById(R.id.signup_btn);
+
+        login_error = findViewById(R.id.login_error);
+        pass_error = findViewById(R.id.pass_error);
 
         tf_login = findViewById(R.id.login);
         tf_pass = findViewById(R.id.pass);
@@ -76,10 +92,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
-        checkLogin();
-        if (login) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+        if (checkLogin()) {
+            api = new Api_connector(tf_login.getText().toString(), tf_pass.getText().toString());
+            Api_connector.wait_state_connection(5000);
+            String token = api.get_user_token();
+            if (!token.isEmpty() && token != null) {
+                ApiMover api_mover = new ApiMover(api);
+                Intent i = new Intent(this, MainActivity.class);
+                i.putExtra("api", api_mover);
+                startActivity(i);
+                logged_in = true;
+                finish();
+            }
         }
     }
 }

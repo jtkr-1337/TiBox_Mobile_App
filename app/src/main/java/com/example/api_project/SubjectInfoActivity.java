@@ -13,8 +13,11 @@ public class SubjectInfoActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_info);
+
         Button b = findViewById(R.id.back_btn);
         b.setOnClickListener(this);
+
+        int id = getIntent().getExtras().getInt("id_lesson");
     }
 
     @Override

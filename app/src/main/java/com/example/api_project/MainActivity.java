@@ -11,19 +11,20 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
+    public static Api_connector api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ViewPager2 viewPager = findViewById(R.id.viewpager);
+        api = ((ApiMover) getIntent().getSerializableExtra("api")).getApi();
+
         NonSwipeableViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setSwipeEnabled(false);
         TabLayout tabs = findViewById(R.id.sliding_tabs);
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
-//        PagerAdapter adapter = new PagerAdapter(this);
         viewPager.setAdapter(adapter);
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -66,14 +67,25 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
+                        int i = tab.getPosition();
+                        switch (i){
+                            case 0:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new settingsFragment()).commit();
+                                break;
+                            case 1:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new subjectsFragment()).commit();
+                                break;
+                            case 2:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new calendarFragment()).commit();
+                                break;
+                            case 3:
+                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new profileFragment()).commit();
+                                break;
+                        }
                     }
                 });
 
         tabSetting();
-
-//        RelativeLayout mainLayout = findViewById(R.id.mainLayout);
-//        getLayoutInflater().inflate(R.layout.tabbar_layout, mainLayout);
-//        TabBar.tabbarSetting(this);
     }
 
     private void tabSetting(){
