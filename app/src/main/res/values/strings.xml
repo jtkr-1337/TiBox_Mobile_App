@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">api_project</string>
+    <string name="app_name">TiBox</string>
     <string name="forget_pass"><u>Забыли пароль?</u></string>
     <string name="no_acc"><u>Зарегистрироваться</u></string>
     <string name="login_with_telegram"><b>Войти через Telegram</b></string>

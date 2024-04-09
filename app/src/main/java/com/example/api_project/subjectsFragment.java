@@ -8,20 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class subjectsFragment extends Fragment {
 
-    Button b;
-    TextView t;
+    SubjectGenerator[] subjects = new SubjectGenerator[10];
+    View v;
+    LinearLayout list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_subjects, container, false);
+        v = inflater.inflate(R.layout.fragment_subjects, container, false);
 
-        t = v.findViewById(R.id.textView);
-        b = v.findViewById(R.id.button);
+        list = v.findViewById(R.id.subjects);
+
+        for (int i=0; i<10; i++){
+            subjects[i] = new SubjectGenerator(getLayoutInflater(), list, "Testing", i, getActivity());
+        }
 
         return v;
     }

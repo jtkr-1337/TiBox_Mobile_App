@@ -28,7 +28,10 @@
                 android:text="Верхняя неделя"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"
-                android:layout_alignLeft="@+id/buttons" />
+                android:layout_alignLeft="@+id/buttons"
+                android:fontFamily="@font/khularegular"
+                android:textColor="@color/black"
+                />
 
 
             <GridLayout
@@ -51,7 +54,8 @@
                     android:layout_columnWeight="1"
                     android:background="@drawable/round_button1"
                     android:text="1\nпн"
-                    android:onClick="onClickFragment"/>
+                    android:onClick="onClickFragment"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button2"
@@ -60,7 +64,8 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:background="@drawable/round_button1"
-                    android:text="2\nвт" />
+                    android:text="2\nвт"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button3"
@@ -69,7 +74,8 @@
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:background="@drawable/round_button1"
-                    android:text="3\nср" />
+                    android:text="3\nср"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button4"
@@ -79,7 +85,8 @@
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
                     android:background="@drawable/round_button1"
-                    android:text="4\nчт" />
+                    android:text="4\nчт"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button5"
@@ -89,7 +96,8 @@
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
                     android:background="@drawable/round_button1"
-                    android:text="5\nпт" />
+                    android:text="5\nпт"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button6"
@@ -99,7 +107,8 @@
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
                     android:background="@drawable/round_button1"
-                    android:text="6\nсб" />
+                    android:text="6\nсб"
+                    android:textColor="@color/black"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button7"
@@ -109,7 +118,8 @@
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
                     android:background="@drawable/round_button1"
-                    android:text="7\nвс" />
+                    android:text="7\nвс"
+                    android:textColor="@color/black"/>
 
             </GridLayout>
 
@@ -118,12 +128,19 @@
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
-                android:text="Вторник, 12 Июля 2022  "
+                android:text="Вторник, 12 Июля 2022"
+                android:fontFamily="@font/khularegular"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_centerHorizontal="true"
+                android:drawablePadding="15dp"
                 android:drawableRight="@drawable/arrow_down"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:paddingTop="12dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="30dp"
+                android:paddingEnd="30dp"
+                />
         </RelativeLayout>
 
         <LinearLayout

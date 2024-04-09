@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.i("ERROR", String.valueOf(login));
         initalVars();
         if (!login){
             setMethodsToButtons();
@@ -37,8 +36,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void checkLogin() {
         String login_txt = tf_login.getText().toString();
         String pass_txt = tf_pass.getText().toString();
-        Log.i("ERROR", login_txt);
-        Log.i("ERROR", pass_txt);
         if (!login_txt.isEmpty() && !pass_txt.isEmpty()) {
             login = true;
         } else{

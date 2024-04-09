@@ -64,7 +64,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         try {
-            getLayoutInflater().inflate(R.layout.widget_calendar, widgetPanel);
+            getLayoutInflater().inflate(R.layout.widget_calendar_old, widgetPanel);
             initialCalendarVars();
         } catch (Exception e) {
             System.out.println("button");

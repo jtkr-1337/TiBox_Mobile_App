@@ -87,7 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignStart="@+id/login_tg_btn">
+        android:layout_alignStart="@+id/login_tg_btn"
+        android:layout_marginBottom="20dp">
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
@@ -110,11 +111,11 @@
         android:id="@+id/login_tg_btn"
         android:layout_width="349dp"
         android:layout_height="52dp"
-        android:layout_marginBottom="74dp"
         android:backgroundTint="#54A9EB"
         android:drawableLeft="@drawable/telegram_icon"
         android:text="@string/login_with_telegram"
         android:textSize="8pt"
+        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
         android:layout_below="@+id/signup_layout"
         android:layout_centerHorizontal="true"/>

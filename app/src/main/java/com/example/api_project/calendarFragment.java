@@ -1,15 +1,17 @@
 package com.example.api_project;
 
+import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -18,7 +20,9 @@ import android.widget.TextView;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class calendarFragment extends Fragment implements View.OnClickListener, CalendarView.OnDateChangeListener {
@@ -26,18 +30,16 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     View v;
     SlidingUpPanelLayout slidingPanel;
     RelativeLayout topPanel, bottomPanel;
-    LinearLayout subjectsList;
+    LinearLayout subjectsListLayout;
     CalendarView calendar;
-    Button button;
     TextView current_date;
-    int subj_id=0;
+    AppCompatButton[] days_of_week_buttons = new AppCompatButton[7];
+    DateSubjectGenerator[] subjects_list;
 
-//    Api_connector api;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        api = new Api_connector("karas", "EgorKaras");
 
         v = inflater.inflate(R.layout.fragment_calendar, container, false);
         initialMainVars();
@@ -48,7 +50,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     private void initialMainVars(){
         slidingPanel = v.findViewById(R.id.slidingPanel);
 
-        subjectsList = v.findViewById(R.id.subjectsList);
+        subjectsListLayout = v.findViewById(R.id.subjectsList);
 
         bottomPanel = v.findViewById(R.id.bottomPanel);
         bottomPanel.setOnTouchListener(new View.OnTouchListener() {
@@ -66,50 +68,161 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
 
         current_date = v.findViewById(R.id.date);
         current_date.setOnClickListener(this);
-
-        button = v.findViewById(R.id.button);
-
+        setCurrentDay();
 
 
         topPanel = v.findViewById(R.id.topPanel);
 
         calendar = v.findViewById(R.id.calendarView);
         calendar.setOnDateChangeListener(this);
+
+
+        subjects_list = new DateSubjectGenerator[4];
+        for (int i=0; i<4; i++) {
+            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), this.subjectsListLayout, i, slidingPanel, getActivity());
+        }
+
+        fillWeekButtonsList();
+        for (int i=0; i<7; i++){
+            days_of_week_buttons[i].setOnClickListener(this);
+        }
+
+    }
+
+    private void fillWeekButtonsList() {
+        days_of_week_buttons[0] = v.findViewById(R.id.button1);
+        days_of_week_buttons[1] = v.findViewById(R.id.button2);
+        days_of_week_buttons[2] = v.findViewById(R.id.button3);
+        days_of_week_buttons[3] = v.findViewById(R.id.button4);
+        days_of_week_buttons[4] = v.findViewById(R.id.button5);
+        days_of_week_buttons[5] = v.findViewById(R.id.button6);
+        days_of_week_buttons[6] = v.findViewById(R.id.button7);
+
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = new Date();
+        calendar.setTime(date);
+
+        String[] week = new String[7];
+
+        String str_date = date.toString();
+        if (str_date.substring(0,3).equals("Mon")){
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }else if (str_date.substring(0,3).equals("Tue")){
+            calendar.add(Calendar.DATE, -1);
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }else if (str_date.substring(0,3).equals("Wed")){
+            calendar.add(Calendar.DATE, -2);
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }else if (str_date.substring(0,3).equals("Thu")){
+            calendar.add(Calendar.DATE, -3);
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }else if (str_date.substring(0,3).equals("Fri")){
+            calendar.add(Calendar.DATE, -4);
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }else if (str_date.substring(0,3).equals("Sat")){
+            calendar.add(Calendar.DATE, -5);
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }else if (str_date.substring(0,3).equals("Sun")){
+            calendar.add(Calendar.DATE, -6);
+            week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }
+
+        for (int i=1; i<7; i++){
+            calendar.add(Calendar.DATE, 1);
+            week[i] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+        }
+
+        days_of_week_buttons[0].setText(week[0]+"ПН");
+        days_of_week_buttons[1].setText(week[1]+"ВТ");
+        days_of_week_buttons[2].setText(week[2]+"СР");
+        days_of_week_buttons[3].setText(week[3]+"ЧТ");
+        days_of_week_buttons[4].setText(week[4]+"ПТ");
+        days_of_week_buttons[5].setText(week[5]+"СБ");
+        days_of_week_buttons[6].setText(week[6]+"ВС");
     }
 
 
     @Override
     public void onClick(View v) {
-        try {
-            slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-//            System.out.println(api.get_user_token());
-//            SubjectGenerator sb = new SubjectGenerator(getLayoutInflater(), this.subjectsList, "Testing", subj_id);
-//            subj_id += 1;
-        } catch (Exception e) {
-            System.out.println("button");
-            System.out.println(e.toString());
+        int id = v.getId();
+        if (slidingPanel.getPanelState() == SlidingUpPanelLayout.PanelState.HIDDEN){
+            if (id == R.id.date) {
+                try {
+                    slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                } catch (Exception e) {
+                    System.out.println("current_day_click_error");
+                    System.out.println(e.toString());
+                }
+            }
+        }else {
+            slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
         }
     }
 
     @Override
     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
         try {
-            String m = String.valueOf(month);
-            String d = String.valueOf(dayOfMonth);
-
-            if (month/10 == 0){
-                m = "0" + month;
-            }
-            if (dayOfMonth/10 == 0){
-                d = "0" + dayOfMonth;
-            }
-
-            String date = year + "-" + m + "-" + d;
-            textView.setText(date);
-//            textView.setText(String.valueOf(api.getTimetableDay(date)));
+            current_date.setText(getDateText(year, month, dayOfMonth));
         } catch (Exception e){
             System.out.println("calendar");
             System.out.println(e.toString());
         }
+    }
+
+
+    private void setCurrentDay() {
+        String[] weeks = createWeekList();
+        String[] months = createMonthsList();
+
+        String day_week = new SimpleDateFormat("u", Locale.getDefault()).format(new Date());
+        String day = new SimpleDateFormat("d", Locale.getDefault()).format(new Date());
+        String month = new SimpleDateFormat("M", Locale.getDefault()).format(new Date());
+        String year = new SimpleDateFormat("yyyy", Locale.getDefault()).format(new Date());
+
+        String data = weeks[Integer.parseInt(day_week)] + ", " + day + " " + months[Integer.parseInt(month)-1] + " " + year;
+        current_date.setText(data);
+    }
+    private String getDateText(int year, int month, int dayOfMonth){
+        String[] weeks = createWeekList();
+        String[] months = createMonthsList();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, dayOfMonth);
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        return weeks[dayOfWeek-1] + ", " + dayOfMonth + " " + months[month] + " " + year;
+    }
+    private String[] createMonthsList() {
+        String[] months = new String[12];
+
+        months[0] = "Января";
+        months[1] = "Февраля";
+        months[2] = "Марта";
+        months[3] = "Апреля";
+        months[4] = "Мая";
+        months[5] = "Июня";
+        months[6] = "Июля";
+        months[7] = "Августа";
+        months[8] = "Сентября";
+        months[9] = "Октября";
+        months[10] = "Ноября";
+        months[11] = "Декабря";
+
+        return months;
+    }
+    private String[] createWeekList() {
+        String[] week = new String[8];
+
+        week[0] = "Воскресенье";
+        week[1] = "Понедельник";
+        week[2] = "Вторник";
+        week[3] = "Среда";
+        week[4] = "Четверг";
+        week[5] = "Пятница";
+        week[6] = "Суббота";
+        week[7] = "Воскресенье";
+
+        return week;
     }
 }

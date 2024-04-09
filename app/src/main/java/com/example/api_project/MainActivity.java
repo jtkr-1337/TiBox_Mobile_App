@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ViewPager2 viewPager = findViewById(R.id_b.viewpager);
+//        ViewPager2 viewPager = findViewById(R.id.viewpager);
         NonSwipeableViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setSwipeEnabled(false);
         TabLayout tabs = findViewById(R.id.sliding_tabs);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabSetting();
 
-//        RelativeLayout mainLayout = findViewById(R.id_b.mainLayout);
+//        RelativeLayout mainLayout = findViewById(R.id.mainLayout);
 //        getLayoutInflater().inflate(R.layout.tabbar_layout, mainLayout);
 //        TabBar.tabbarSetting(this);
     }
