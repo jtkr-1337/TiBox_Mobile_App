@@ -73,7 +73,30 @@ public class Api_connector {
         this.client.newCall(request).enqueue(call);
     }
 
-    private void getGroupsInstitutes(React reactor) {
+    public void createNewUser(String user_login, String user_password,
+                             String id_group, String id_institute,
+                             React reactor) {
+        String url = this.url + "system.createNewUser";
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        urlBuilder.addQueryParameter("id_app", this.id_app);
+        urlBuilder.addQueryParameter("secret_key", this.secret_key);
+        urlBuilder.addQueryParameter("user_login", user_login);
+        urlBuilder.addQueryParameter("user_password", user_password);
+        urlBuilder.addQueryParameter("user_name", user_login);
+        urlBuilder.addQueryParameter("id_group", id_group);
+        urlBuilder.addQueryParameter("id_institute", id_institute);
+
+        Request request = new Request.Builder()
+                .addHeader("User-Agent", "TiboxMobileApp")
+                .url(urlBuilder.build())
+                .get()
+                .build();
+
+        Callb call = new Callb(reactor);
+        this.client.newCall(request).enqueue(call);
+    }
+
+    public void getGroupsInstitutes(React reactor) {
         String url = this.url + "system.getApp_data";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("id_app", this.id_app);
@@ -410,6 +433,8 @@ class Callb implements Callback {
                     if (!this.ignore_state) Api_connector.stateConnection = StateConnection.success;
                     this.reactor.reaction(data);
                 } catch (JSONException e) {
+                    if (!this.ignore_state) Api_connector.stateConnection = StateConnection.fail;
+                    this.reactor.FailedRequest(response.code());
 //                    Log.i("ERRORINFO_JSON", e.toString());
                     System.out.println("ERRORINFO_JSON: " + e.toString());
                 }

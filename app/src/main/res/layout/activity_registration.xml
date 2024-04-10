@@ -37,29 +37,33 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login"
+            android:id="@+id/login_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/khularegular">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login"
                 android:background="@drawable/change_login_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="логин"
-                android:fontFamily="@font/khularegular"/>
+                android:fontFamily="@font/khularegular"
+                android:inputType="text|textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="6dp"
-            android:id="@+id/password"
+            android:id="@+id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/khularegular">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/password"
                 android:layout_height="match_parent"
+                android:inputType="textPassword"
                 android:hint="пароль"
                 android:background="@drawable/change_login_bg"
                 android:fontFamily="@font/khularegular"/>
@@ -67,18 +71,30 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="6dp"
-            android:id="@+id/password2"
+            android:id="@+id/password2_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/khularegular">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:id="@+id/password2"
                 android:layout_height="match_parent"
+                android:inputType="textPassword"
                 android:hint="повторите пароль"
                 android:background="@drawable/change_login_bg"
                 android:fontFamily="@font/khularegular"/>
         </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_below="@+id/login_layout"
+            android:id="@+id/login_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asdasd"
+            android:textColor="@color/red"
+            android:layout_alignStart="@+id/login_layout"
+            android:visibility="invisible"
+            />
     </LinearLayout>
 
     <TextView
@@ -128,7 +144,7 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="#4D7D96"
         android:textColor="@color/white"
-        android:text="Зарегестрироваться"
+        android:text="Зарегистрироваться"
         android:textSize="16dp"
         app:cornerRadius="16dp"
         android:fontFamily="@font/montserrat"/>
