@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = this.getSharedPreferences("TiBox_Storage",Context.MODE_PRIVATE);
         String token = sharedPref.getString("user_token", null);
-        System.out.println(token);
+        System.out.println("user_token: " + token);
 
         System.out.println("Token was taken from storage");
         api = new Api_connector(token);

@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -34,7 +35,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     LinearLayout subjectsListLayout;
     CalendarView calendar;
     TextView current_date, error;
-    AppCompatButton[] days_of_week_buttons = new AppCompatButton[7];
+    WeekButton[] days_of_week_buttons = new WeekButton[7];
     DateSubjectGenerator[] subjects_list = new DateSubjectGenerator[0];
 
     String date;
@@ -54,9 +55,9 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         return v;
     }
 
-
     private void initialMainVars() throws JSONException {
         slidingPanel = v.findViewById(R.id.slidingPanel);
+        slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
 
         subjectsListLayout = v.findViewById(R.id.subjectsList);
 
@@ -79,12 +80,25 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         calendar = v.findViewById(R.id.calendarView);
         calendar.setOnDateChangeListener(this);
 
-        MainActivity.api.getTimetableDay(this.date, new React(){
+        getLessonInfo(this.date);
+
+        Api_connector.wait_state_connection(100000);
+        System.out.println("CalendarFragment end: "+System.currentTimeMillis());
+        if (api_status || subjects_list.length!=0){
+            createLessons();
+        } else{
+            error.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void getLessonInfo(String date) {
+        MainActivity.api.getTimetableDay(date, new React(){
             @Override
             public void reaction(JSONObject data) throws JSONException {
                 lessons = data.getJSONObject("response").getJSONArray("lessons");
                 subjects_list = new DateSubjectGenerator[lessons.length()];
                 api_status = true;
+                System.out.println("CalendarFragment start: "+System.currentTimeMillis());
             }
 
             @Override
@@ -92,21 +106,13 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
                 api_status = false;
             }
         });
-
-        Api_connector.wait_state_connection(100000);
-        if (api_status || subjects_list.length!=0){
-            createLessons();
-        } else{
-//            createLessons();
-            System.out.println(subjects_list.length);
-            error.setVisibility(View.VISIBLE);
-        }
     }
 
     private void createLessons() throws JSONException {
         for (int i=0; i<lessons.length(); i++){
             JSONObject lesson = lessons.getJSONObject(i);
 
+            int id = lesson.getInt("id");
             String cab = lesson.getString("info");
             JSONArray up = lesson.getJSONObject("time").getJSONArray("up");
             JSONArray down = lesson.getJSONObject("time").getJSONArray("down");
@@ -115,8 +121,9 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
             String prof = lesson.getJSONArray("teacher").getJSONObject(0).getString("name");
             String name = lesson.getString("name");
 
-            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), i, cab, time, prof, name);
+            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), id, cab, time, prof, name);
         }
+        v.invalidate();
     }
     private void fillWeekButtonsList() {
         days_of_week_buttons[0] = v.findViewById(R.id.button1);
@@ -126,6 +133,14 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         days_of_week_buttons[4] = v.findViewById(R.id.button5);
         days_of_week_buttons[5] = v.findViewById(R.id.button6);
         days_of_week_buttons[6] = v.findViewById(R.id.button7);
+
+        days_of_week_buttons[0].id = R.id.button1;
+        days_of_week_buttons[1].id = R.id.button2;
+        days_of_week_buttons[2].id = R.id.button3;
+        days_of_week_buttons[3].id = R.id.button4;
+        days_of_week_buttons[4].id = R.id.button5;
+        days_of_week_buttons[5].id = R.id.button6;
+        days_of_week_buttons[6].id = R.id.button7;
 
 
         Calendar calendar = Calendar.getInstance();
@@ -137,29 +152,37 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         String str_date = date.toString();
         if (str_date.substring(0,3).equals("Mon")){
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }else if (str_date.substring(0,3).equals("Tue")){
             calendar.add(Calendar.DATE, -1);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }else if (str_date.substring(0,3).equals("Wed")){
             calendar.add(Calendar.DATE, -2);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }else if (str_date.substring(0,3).equals("Thu")){
             calendar.add(Calendar.DATE, -3);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }else if (str_date.substring(0,3).equals("Fri")){
             calendar.add(Calendar.DATE, -4);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }else if (str_date.substring(0,3).equals("Sat")){
             calendar.add(Calendar.DATE, -5);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }else if (str_date.substring(0,3).equals("Sun")){
             calendar.add(Calendar.DATE, -6);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }
 
         for (int i=1; i<7; i++){
             calendar.add(Calendar.DATE, 1);
             week[i] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
+            days_of_week_buttons[i].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
         }
 
         days_of_week_buttons[0].setText(week[0]+"ПН");
@@ -183,6 +206,13 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
                     System.out.println("current_day_click_error");
                     System.out.println(e.toString());
                 }
+            } else {
+                for (int i=0; i<7; i++){
+                    if (id == days_of_week_buttons[i].id){
+                        getLessonInfo(days_of_week_buttons[i].getDate());
+                    }
+                }
+
             }
         }else {
             slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
@@ -193,6 +223,22 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
         try {
             current_date.setText(getDateText(year, month, dayOfMonth));
+
+            month += 1;
+            String d, m;
+            if (dayOfMonth/10==0){
+                d = "0" + dayOfMonth;
+            } else{
+                d = String.valueOf(dayOfMonth);
+            }
+            if (month/10==0){
+                m = "0" + month;
+            } else{
+                m = String.valueOf(month);
+            }
+            String date = year + "-" + m + "-" + d;
+
+            getLessonInfo(date);
         } catch (Exception e){
             System.out.println("calendar");
             System.out.println(e.toString());

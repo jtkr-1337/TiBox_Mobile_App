@@ -84,13 +84,13 @@
 
     <TextView
         android:id="@+id/forget_pass"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pass_error"
         android:layout_alignStart="@+id/login_layout"
         android:text="@string/forget_pass"
-        android:layout_below="@+id/pass_error"
         android:textColor="@color/link_text"
-        />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/login_btn"
@@ -136,14 +136,15 @@
         android:id="@+id/login_tg_btn"
         android:layout_width="349dp"
         android:layout_height="52dp"
+        android:layout_below="@+id/signup_layout"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="#54A9EB"
         android:drawableLeft="@drawable/telegram_icon"
-        android:text="@string/login_with_telegram"
-        android:textSize="8pt"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
-        android:layout_below="@+id/signup_layout"
-        android:layout_centerHorizontal="true"/>
+        android:text="@string/login_with_telegram"
+        android:textColor="@color/white"
+        android:textSize="8pt"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

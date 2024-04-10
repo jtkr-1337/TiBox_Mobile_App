@@ -46,7 +46,7 @@
                 android:layout_centerHorizontal="true">
 
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button1"
                     android:layout_width="47dp"
                     android:layout_height="47dp"
@@ -57,7 +57,7 @@
                     android:onClick="onClickFragment"
                     android:textColor="@color/black"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button2"
                     android:layout_width="47dp"
                     android:layout_height="47dp"
@@ -67,7 +67,7 @@
                     android:text="2\nвт"
                     android:textColor="@color/black"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button3"
                     android:layout_width="47dp"
                     android:layout_height="47dp"
@@ -77,7 +77,7 @@
                     android:text="3\nср"
                     android:textColor="@color/black"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button4"
                     android:layout_width="47dp"
                     android:layout_height="47dp"
@@ -88,7 +88,7 @@
                     android:text="4\nчт"
                     android:textColor="@color/black"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button5"
                     android:layout_width="47dp"
                     android:layout_height="47dp"
@@ -99,7 +99,7 @@
                     android:text="5\nпт"
                     android:textColor="@color/black"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button6"
                     android:layout_width="47dp"
                     android:layout_height="47dp"
@@ -110,7 +110,7 @@
                     android:text="6\nсб"
                     android:textColor="@color/black"/>
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.example.api_project.WeekButton
                     android:id="@+id/button7"
                     android:layout_width="47dp"
                     android:layout_height="47dp"

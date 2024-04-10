@@ -16,8 +16,13 @@ public class SubjectInfoActivity extends AppCompatActivity implements View.OnCli
 
         Button b = findViewById(R.id.back_btn);
         b.setOnClickListener(this);
-
-        int id = getIntent().getExtras().getInt("id_lesson");
+        Intent args = getIntent();
+        if (args!=null){
+            int id = args.getIntExtra("lesson_id", -1);
+            System.out.println("LesonId: " + id);
+        } else{
+            System.out.println("LessonId not found");
+        }
     }
 
     @Override

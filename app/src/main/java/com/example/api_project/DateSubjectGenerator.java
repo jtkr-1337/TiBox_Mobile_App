@@ -55,7 +55,10 @@ public class DateSubjectGenerator implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (panel.getPanelState() == SlidingUpPanelLayout.PanelState.HIDDEN) {
-            this.a.startActivity(new Intent(this.a, SubjectInfoActivity.class));
+            Intent i = new Intent(this.a, SubjectInfoActivity.class);
+            //todo передачу данных на страницу предмета
+//            i.putExtra("id",);
+            this.a.startActivity(i);
         } else{
             panel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
         }

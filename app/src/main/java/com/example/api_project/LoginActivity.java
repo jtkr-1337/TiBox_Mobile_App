@@ -28,14 +28,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        //todo убрать все строки в переменные
+        SharedPreferences sharedPref = this.getSharedPreferences("TiBox_Storage",Context.MODE_PRIVATE);
         String token = sharedPref.getString("user_token", null);
-
-        initalVars();
+        System.out.println("user_token: " + token);
 
         if (token == null){
+            setContentView(R.layout.activity_login);
+            initalVars();
             setMethodsToButtons();
         }else {
             startActivity(new Intent(this, MainActivity.class));
@@ -46,8 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean checkLogin() {
         String regex_login = "^[a-zA-Z0-9-*]+";
-//        String regex_pass = "^\\b[A-Za-z0-9._!]{8,}\\b";
-        String regex_pass = "^[a-zA-Z0-9-*]+";
+        String regex_pass = "^\\b[A-Za-z0-9._!]{8,}\\b";
 
         Pattern pattern_login = Pattern.compile(regex_login);
         Pattern pattern_pass = Pattern.compile(regex_pass);
@@ -58,9 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             login_error.setText("Логин должен содержать только буквы латинского алфавита, цифры и не должен быть длинее 16 символов");
             login_error.setVisibility(View.VISIBLE);
             return false;
-        }else if (!pattern_pass.matcher(l_txt).matches() || p_txt.isEmpty()){
+        }else if (!pattern_pass.matcher(p_txt).matches() || p_txt.isEmpty()){
             login_error.setVisibility(View.INVISIBLE);
-            pass_error.setText("Пароль должен содержать только буквы латинского алфавита, цифры и не должен быть короче 8 символов");
+            pass_error.setText("Пароль должен содержать только буквы латинского алфавита, цифры, точку, нижнее подчеркивание, восклицательный знак и не должен быть короче 8 символов");
             pass_error.setVisibility(View.VISIBLE);
             return false;
         }else{
@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        //todo сделать нормальные сообщения об ошибке
         int id = v.getId();
 
         if (id == R.id.login_btn){
@@ -112,6 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     api.user_token = data.getJSONObject("response").getString("auth_token");
                     System.out.println("Пользователь найден");
                     api_status = true;
+                    System.out.println("LoginActivity start: "+System.currentTimeMillis());
                 }
 
                 @Override
@@ -121,6 +123,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
             Api_connector.wait_state_connection(10000);
+            System.out.println("LoginActivity end: "+System.currentTimeMillis());
             if (this.api_status){
                 startMainActivity();
             } else{
@@ -133,7 +136,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("user_token", api.get_user_token());
         editor.apply();
-
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

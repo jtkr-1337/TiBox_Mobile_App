@@ -37,6 +37,7 @@ public class subjectsFragment extends Fragment {
                 lessons = data.getJSONObject("response").getJSONArray("rows");
                 subjects = new SubjectGenerator[lessons.length()];
                 api_status = true;
+                System.out.println("SubjectsFragment start: "+System.currentTimeMillis());
             }
 
             @Override
@@ -46,6 +47,7 @@ public class subjectsFragment extends Fragment {
         });
 
         Api_connector.wait_state_connection(100000);
+        System.out.println("SubjectsFragment end: "+System.currentTimeMillis());
         if (api_status || subjects.length!=0){
             try {
                 createSubjects();
