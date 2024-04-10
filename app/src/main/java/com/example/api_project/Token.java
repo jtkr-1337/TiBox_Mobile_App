@@ -23,7 +23,7 @@ public class Token {
     }
     public void removeToken(){
         SharedPreferences.Editor editor = cache_storage.edit();
-        editor.putString("user_token", null);
+        editor.remove("user_token");
         editor.apply();
     }
     public boolean isEmptyToken(){

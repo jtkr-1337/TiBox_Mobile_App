@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,13 +29,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //todo убрать все строки в переменные
-        SharedPreferences sharedPref = this.getSharedPreferences("TiBox_Storage",Context.MODE_PRIVATE);
-        String token = sharedPref.getString("user_token", null);
-        System.out.println("user_token: " + token);
 
-        if (token == null){
+        Token token = new Token(this);
+        String userToken = token.getToken();
+
+        if (userToken == null){
             setContentView(R.layout.activity_login);
             initalVars();
             setMethodsToButtons();
@@ -132,10 +134,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     private void startMainActivity() {
-        SharedPreferences settings = this.getSharedPreferences("TiBox_Storage", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("user_token", api.get_user_token());
-        editor.apply();
+        Token token = new Token(this);
+        token.setToken(api.get_user_token());
+
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

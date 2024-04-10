@@ -156,20 +156,20 @@
             android:visibility="invisible"
             />
 
-        <LinearLayout
-            android:id="@+id/subjectsList"
-            android:layout_below="@+id/error_msg"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:divider="@drawable/divider"
-            android:showDividers="middle"
-            >
-
-            <ScrollView
+            android:layout_below="@+id/error_msg">
+            <LinearLayout
+                android:id="@+id/subjectsList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:divider="@drawable/divider"
+                android:showDividers="middle"
+                >
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
     <RelativeLayout

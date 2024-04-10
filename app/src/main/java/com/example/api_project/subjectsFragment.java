@@ -22,6 +22,7 @@ public class subjectsFragment extends Fragment {
     JSONArray lessons;
     SubjectGenerator[] subjects = new SubjectGenerator[0];
     boolean api_status;
+    String title, desc;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +49,7 @@ public class subjectsFragment extends Fragment {
 
         Api_connector.wait_state_connection(100000);
         System.out.println("SubjectsFragment end: "+System.currentTimeMillis());
-        if (api_status || subjects.length!=0){
+        if (api_status){
             try {
                 createSubjects();
             } catch (JSONException e) {
@@ -64,7 +65,32 @@ public class subjectsFragment extends Fragment {
     private void createSubjects() throws JSONException {
         for (int i = 0; i< lessons.length(); i++){
             JSONObject lesson = lessons.getJSONObject(i);
-            subjects[i] = new SubjectGenerator(getLayoutInflater(), list, lesson.getString("name"), lesson.getInt("id_lesson"), getActivity());
+
+            MainActivity.api.getLesson(lesson.getInt("id_lesson"), new React(){
+                @Override
+                public void reaction(JSONObject data) throws JSONException {
+                    JSONArray rows = data.getJSONObject("response").getJSONArray("rows");
+                    desc = rows.getJSONObject(0).getString("description");
+                    System.out.println("getLesson for InfoActivity start:" + System.currentTimeMillis());
+                    api_status = true;
+                }
+
+                @Override
+                public void FailedRequest(int status) {
+                    api_status = false;
+                }
+            });
+
+            Api_connector.wait_state_connection(10000);
+            System.out.println("getLesson for InfoActivity end:" + System.currentTimeMillis());
+
+            if (!api_status){
+                desc = "Ошибка соединения";
+            }
+            title = lesson.getString("name");
+            System.out.println("Описание предмета: " + desc);
+
+            subjects[i] = new SubjectGenerator(getLayoutInflater(), list, title, lesson.getInt("id_lesson"), getActivity(), desc);
         }
     }
 }

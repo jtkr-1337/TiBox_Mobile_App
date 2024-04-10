@@ -29,19 +29,21 @@
         android:layout_below="@+id/title"
         android:visibility="invisible"
         />
-
-    <LinearLayout
-        android:id="@+id/subjects"
+    <ScrollView
         android:layout_below="@id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/divider"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:showDividers="middle">
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/subjects"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:showDividers="middle">
 
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
 
 
