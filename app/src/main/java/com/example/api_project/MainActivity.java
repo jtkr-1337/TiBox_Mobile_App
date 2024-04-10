@@ -1,16 +1,11 @@
 package com.example.api_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
     public static Api_connector api;
@@ -19,13 +14,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        SharedPreferences sharedPref = this.getSharedPreferences("TiBox_Storage",Context.MODE_PRIVATE);
-        String token = sharedPref.getString("user_token", null);
-        System.out.println("user_token: " + token);
+        Token token = new Token(this);
+        String userToken = token.getToken();
+
 
         System.out.println("Token was taken from storage");
-        api = new Api_connector(token);
+        api = new Api_connector(userToken);
         System.out.println(api.get_user_token());
         Api_connector.wait_state_connection(10000);
         System.out.println(api.get_user_token());

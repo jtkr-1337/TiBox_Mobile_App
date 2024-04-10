@@ -14,7 +14,7 @@ public class SubjectGenerator {
     int id_rl, id_lesson;
     RelativeLayout rl;
     AppCompatButton b;
-    public SubjectGenerator(LayoutInflater l, View v, String t, int id, Activity a){
+    public SubjectGenerator(LayoutInflater l, View v, String t, int id, Activity a, String desc){
         l.inflate(R.layout.template_subject, (ViewGroup) v);
         rl = v.findViewById(R.id.subject);
         this.id_rl = id_const + id;
@@ -25,8 +25,9 @@ public class SubjectGenerator {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(a, SubjectInfoActivity.class);
-                i.putExtra("lesson_id", id_lesson);
+                Intent i = new Intent(a, InfoActivity.class);
+                i.putExtra("title", t);
+                i.putExtra("desc", desc);
                 a.startActivity(i);
             }
         });

@@ -81,17 +81,9 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         calendar.setOnDateChangeListener(this);
 
         getLessonInfo(this.date);
-
-        Api_connector.wait_state_connection(100000);
-        System.out.println("CalendarFragment end: "+System.currentTimeMillis());
-        if (api_status || subjects_list.length!=0){
-            createLessons();
-        } else{
-            error.setVisibility(View.VISIBLE);
-        }
     }
 
-    private void getLessonInfo(String date) {
+    private void getLessonInfo(String date) throws JSONException {
         MainActivity.api.getTimetableDay(date, new React(){
             @Override
             public void reaction(JSONObject data) throws JSONException {
@@ -106,6 +98,16 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
                 api_status = false;
             }
         });
+
+        Api_connector.wait_state_connection(100000);
+        System.out.println("CalendarFragment end: "+System.currentTimeMillis());
+        subjectsListLayout.removeAllViews();
+        if (api_status || subjects_list.length!=0){
+            createLessons();
+        } else{
+            error.setVisibility(View.VISIBLE);
+        }
+        v.invalidate();
     }
 
     private void createLessons() throws JSONException {
@@ -116,15 +118,26 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
             String cab = lesson.getString("info");
             JSONArray up = lesson.getJSONObject("time").getJSONArray("up");
             JSONArray down = lesson.getJSONObject("time").getJSONArray("down");
-            String time = String.valueOf(up.getInt(0)) + ":" + String.valueOf(up.getInt(1))
-                    + "-" + String.valueOf(down.getInt(0)) + ":" + String.valueOf(down.getInt(1));
+
+
+            String time = rightTimeFormat(up.getInt(0)) + ":" + rightTimeFormat(up.getInt(1))
+                    + "-" + rightTimeFormat(down.getInt(0)) + ":" + rightTimeFormat(down.getInt(1));
             String prof = lesson.getJSONArray("teacher").getJSONObject(0).getString("name");
             String name = lesson.getString("name");
 
             subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), id, cab, time, prof, name);
         }
-        v.invalidate();
     }
+    private String rightTimeFormat(int t){
+        String tru_t;
+        if (t/10==0){
+            tru_t = "0" + t;
+        } else{
+            tru_t = String.valueOf(t);
+        }
+        return tru_t;
+    }
+
     private void fillWeekButtonsList() {
         days_of_week_buttons[0] = v.findViewById(R.id.button1);
         days_of_week_buttons[1] = v.findViewById(R.id.button2);
@@ -141,6 +154,10 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         days_of_week_buttons[4].id = R.id.button5;
         days_of_week_buttons[5].id = R.id.button6;
         days_of_week_buttons[6].id = R.id.button7;
+
+        for (int i=0; i<7; i++){
+            days_of_week_buttons[i].parent = this;
+        }
 
 
         Calendar calendar = Calendar.getInstance();
@@ -209,7 +226,12 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
             } else {
                 for (int i=0; i<7; i++){
                     if (id == days_of_week_buttons[i].id){
-                        getLessonInfo(days_of_week_buttons[i].getDate());
+                        try {
+                            getLessonInfo(days_of_week_buttons[i].getDate());
+                            current_date.setText(days_of_week_buttons[i].getAltDate());
+                        } catch (JSONException e) {
+                            System.out.println("weekButtonJSONError: " + e.toString());
+                        }
                     }
                 }
 
@@ -270,7 +292,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
 
         return weeks[dayOfWeek-1] + ", " + dayOfMonth + " " + months[month] + " " + year;
     }
-    private String[] createMonthsList() {
+    String[] createMonthsList() {
         String[] months = new String[12];
 
         months[0] = "Января";
@@ -288,7 +310,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
 
         return months;
     }
-    private String[] createWeekList() {
+    String[] createWeekList() {
         String[] week = new String[8];
 
         week[0] = "Воскресенье";

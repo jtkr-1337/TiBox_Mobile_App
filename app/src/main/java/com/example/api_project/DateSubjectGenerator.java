@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +33,11 @@ public class DateSubjectGenerator implements View.OnClickListener {
         leftPanel.setOnClickListener(this);
 
         cab = (TextView) leftPanel.getChildAt(0);
-        cab.setText(str_cab);
+        if (str_cab.length() > 8){
+            cab.setText(str_cab.substring(0,9));
+        }else {
+            cab.setText(str_cab);
+        }
         cab.setOnClickListener(this);
         time = (TextView) leftPanel.getChildAt(1);
         time.setText(str_time);
@@ -55,9 +58,11 @@ public class DateSubjectGenerator implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (panel.getPanelState() == SlidingUpPanelLayout.PanelState.HIDDEN) {
-            Intent i = new Intent(this.a, SubjectInfoActivity.class);
-            //todo передачу данных на страницу предмета
-//            i.putExtra("id",);
+            Intent i = new Intent(this.a, InfoActivity.class);
+            i.putExtra("title", subj.getText().toString());
+            String desc = "Преподаватель: " + prof.getText().toString() + "\n"
+                    + "Аудитория: " + cab.getText().toString();
+            i.putExtra("desc", desc);
             this.a.startActivity(i);
         } else{
             panel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
