@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
+                        tabClear();
                         int i = tab.getPosition();
                         switch (i){
                             case 0:
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onTabUnselected(TabLayout.Tab tab) {
+                        tabClear();
                         int i = tab.getPosition();
                         switch (i){
                             case 0:

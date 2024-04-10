@@ -46,17 +46,17 @@ public class settingsFragment extends Fragment implements View.OnClickListener {
         }else if (id == R.id.help){
             Intent i = new Intent(getActivity(), InfoActivity.class);
             i.putExtra("title", "Помощь");
-            i.putExtra("desc", "Тут инфа о нас");
+            i.putExtra("desc", getResources().getString(R.string.help));
             startActivity(i);
         }else if (id == R.id.about_app){
             Intent i = new Intent(getActivity(), InfoActivity.class);
             i.putExtra("title", "О приложении");
-            i.putExtra("desc", "Тут инфа о приложении");
+            i.putExtra("desc", getResources().getString(R.string.about_app));
             startActivity(i);
         }else if (id == R.id.about_us){
             Intent i = new Intent(getActivity(), InfoActivity.class);
             i.putExtra("title", "О команде");
-            i.putExtra("desc", "Тут инфа о нас");
+            i.putExtra("desc", getResources().getString(R.string.about_us));
             startActivity(i);
         }
     }

@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             login_error.setVisibility(View.VISIBLE);
             return false;
         }else if (!pattern_pass.matcher(p_txt).matches() || p_txt.isEmpty()){
-            login_error.setVisibility(View.INVISIBLE);
+            login_error.setVisibility(View.GONE);
             pass_error.setText("Пароль должен содержать только буквы латинского алфавита, цифры, точку, нижнее подчеркивание, восклицательный знак и не должен быть короче 8 символов");
             pass_error.setVisibility(View.VISIBLE);
             return false;
@@ -108,6 +108,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void login() {
         if (checkLogin()) {
+            login_error.setVisibility(View.GONE);
+            pass_error.setVisibility(View.GONE);
+
             api = new Api_connector(tf_login.getText().toString(), tf_pass.getText().toString());
             api.getAuthToken(new React(){
                 @Override

@@ -63,7 +63,7 @@ public class profileFragment extends Fragment implements View.OnClickListener {
             }
         });
         Api_connector.wait_state_connection(1000);
-        System.out.println("");
+        System.out.println("фывфывфыв");
         if(flag_connection){
             Picasso.get().load(data_user.getString("pfp")).into(pfp);
 
@@ -71,7 +71,7 @@ public class profileFragment extends Fragment implements View.OnClickListener {
             tf_name.setEnabled(false);
         } else {
             Toast.makeText(getActivity(),
-                    "Проблемы с подключением интернета", Toast.LENGTH_LONG).show();
+                    "Профиль Проблемы с подключением интернета", Toast.LENGTH_LONG).show();
 
         }
     }

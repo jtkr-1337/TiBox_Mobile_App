@@ -44,10 +44,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/login"
-                android:background="@drawable/change_login_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="логин"
+                android:hint="Логин"
+                android:textColor="@color/black"
                 android:fontFamily="@font/khularegular"
                 android:inputType="text|textEmailAddress"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,8 +64,8 @@
                 android:id="@+id/password"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:hint="пароль"
-                android:background="@drawable/change_login_bg"
+                android:hint="Пароль"
+                android:textColor="@color/black"
                 android:fontFamily="@font/khularegular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,20 +81,20 @@
                 android:id="@+id/password2"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:hint="повторите пароль"
-                android:background="@drawable/change_login_bg"
+                android:hint="Повторите пароль"
+                android:textColor="@color/black"
                 android:fontFamily="@font/khularegular"/>
         </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
-            android:layout_below="@+id/login_layout"
             android:id="@+id/login_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/login_layout"
+            android:layout_alignStart="@+id/login_layout"
             android:text="asdasd"
             android:textColor="@color/red"
-            android:layout_alignStart="@+id/login_layout"
-            android:visibility="invisible"
-            />
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
@@ -123,16 +123,19 @@
             android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/change_login_bg"
-            android:fontFamily="@font/khularegular" />
+            android:background="@drawable/spinner_bg"
+            android:fontFamily="@font/khularegular"
+            style="@style/SpinnerItemStyle" />
 
         <Spinner
             android:id="@+id/groups"
             android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/change_login_bg"
-            android:fontFamily="@font/khularegular"/>
+            android:background="@drawable/spinner_bg"
+            android:fontFamily="@font/khularegular"
+            style="@style/SpinnerItemStyle"
+            />
     </LinearLayout>
 
     <Button

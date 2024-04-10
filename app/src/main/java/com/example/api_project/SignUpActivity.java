@@ -149,7 +149,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             inst.setAdapter(adapter);
         } else {
             Toast.makeText(getApplicationContext(),
-                    "Проблемы с подключением интернета", Toast.LENGTH_LONG).show();
+                    "Регистрация Проблемы с подключением интернета", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, LoginActivity.class));
         }
         System.out.println("SignUpActivity end: " + System.currentTimeMillis());
