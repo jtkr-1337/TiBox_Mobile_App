@@ -1,6 +1,7 @@
 package com.example.api_project;
 
 import android.util.Log;
+import android.view.View;
 
 import okhttp3.*;
 
@@ -36,39 +37,25 @@ public class Api_connector {
     protected String auth_token, user_token;
     private final OkHttpClient client = new OkHttpClient().newBuilder().build();
 
+
     public Api_connector(String login, String pass) {
         this.user_log = login;
         this.user_pass = pass;
-        testConnection(new React(){
-            @Override
-            public void reaction(JSONObject data){
-                getAuthToken(new React(){
-                    @Override
-                    public void reaction(JSONObject data) throws JSONException { // это значит всё успешно завершилось
-                        user_token = data.getJSONObject("response").getString("auth_token");
-                    }
-
-                    @Override
-                    public void FailedRequest(int status){ // это значит НЕ всё успешно завершилось
-                        // all DIS-action on Ateva. ATEVA ATEVA! ATEVA
-
-                    }
-                });
-            }
-        });
+        testConnection(new React());
     }
     public Api_connector(String user_token_test) {
         this.user_token = user_token_test;
-        testConnection(new React(){
+        getLesson(new React(){
             @Override
             public void FailedRequest(int status){
-                user_token = null; // todo подумай что тут должно быть. Ошибка или мейби так оставить
+                user_token = null;
+                System.out.println("Не удалось найти пользователя");
             }
         });
     }
 
     /*-------------- SERVER METHODS --------------*/
-    private void getAuthToken(React reactor) {
+    public void getAuthToken(React reactor) {
         String url = this.url + "system.auth";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("login", this.user_log);
@@ -218,7 +205,7 @@ public class Api_connector {
     }
 
     public void changePassword(String old_pass, String new_pass, React reactor) {
-        String url = this.url + "user.getInfo";
+        String url = this.url + "user.changePassword";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("user_token", this.user_token);
         urlBuilder.addQueryParameter("old_password", old_pass);
@@ -268,7 +255,7 @@ public class Api_connector {
     }
 
     public void getTimetableDay(String date, String teacher, int lesson, React reactor) {
-        String url = this.url + "user.getTimetable";
+        String url = this.url + "timetable.getTimetableDay";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("user_token", this.user_token);
         if (Objects.equals(teacher, "") && lesson == -1) {
@@ -288,6 +275,8 @@ public class Api_connector {
             urlBuilder.addQueryParameter("id_teacher", String.valueOf(teacher));
         }
 
+        System.out.println(urlBuilder.toString());
+
         Request request = new Request.Builder()
                 .addHeader("User-Agent", "TiboxMobileApp")
                 .url(urlBuilder.build())
@@ -299,7 +288,7 @@ public class Api_connector {
     }
 
     public void getLesson(int lesson, React reactor) {
-        String url = this.url + "user.getLesson";
+        String url = this.url + "timetable.getLesson";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("user_token", user_token);
         urlBuilder.addQueryParameter("id_lesson", String.valueOf(lesson));
@@ -314,9 +303,11 @@ public class Api_connector {
         this.client.newCall(request).enqueue(call);
     }
     public void getLesson(React reactor) {
-        String url = this.url + "user.getLesson";
+        String url = this.url + "timetable.getLesson";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("user_token", user_token);
+
+        System.out.println(urlBuilder.toString());
 
         Request request = new Request.Builder()
                 .addHeader("User-Agent", "TiboxMobileApp")
@@ -329,7 +320,7 @@ public class Api_connector {
     }
 
     public void getTeacher(int teacher, React reactor) {
-        String url = this.url + "user.getTeacher";
+        String url = this.url + "timetable.getTeacher";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("user_token", user_token);
         urlBuilder.addQueryParameter("id_teacher", String.valueOf(teacher));
@@ -344,7 +335,7 @@ public class Api_connector {
         this.client.newCall(request).enqueue(call);
     }
     public void getTeacher(React reactor) {
-        String url = this.url + "user.getTeacher";
+        String url = this.url + "timetable.getTeacher";
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("user_token", user_token);
 

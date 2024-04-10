@@ -16,10 +16,12 @@ import org.json.JSONObject;
 
 public class subjectsFragment extends Fragment {
 
-    SubjectGenerator[] subjects;
     View v;
     LinearLayout list;
     TextView error;
+    JSONArray lessons;
+    SubjectGenerator[] subjects = new SubjectGenerator[0];
+    boolean api_status;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,21 +34,35 @@ public class subjectsFragment extends Fragment {
         MainActivity.api.getLesson(new React(){
             @Override
             public void reaction(JSONObject data) throws JSONException {
-                JSONArray lesons = data.getJSONObject("response").getJSONArray("rows");
-                subjects = new SubjectGenerator[lesons.length()];
-                for (int i = 0; i< lesons.length(); i++){
-                    JSONObject lesson = lesons.getJSONObject(i);
-                    subjects[i] = new SubjectGenerator(getLayoutInflater(), list, lesson.getString("name"), lesson.getInt("id_lesson"), getActivity());
-                }
+                lessons = data.getJSONObject("response").getJSONArray("rows");
+                subjects = new SubjectGenerator[lessons.length()];
+                api_status = true;
             }
 
             @Override
             public void FailedRequest(int status){
-                error.setVisibility(View.VISIBLE);
+                api_status = false;
             }
         });
 
+        Api_connector.wait_state_connection(100000);
+        if (api_status || subjects.length!=0){
+            try {
+                createSubjects();
+            } catch (JSONException e) {
+                System.out.println("SubjectsJSONError: " + e.toString());
+            }
+        } else{
+            error.setVisibility(View.VISIBLE);
+        }
 
         return v;
+    }
+
+    private void createSubjects() throws JSONException {
+        for (int i = 0; i< lessons.length(); i++){
+            JSONObject lesson = lessons.getJSONObject(i);
+            subjects[i] = new SubjectGenerator(getLayoutInflater(), list, lesson.getString("name"), lesson.getInt("id_lesson"), getActivity());
+        }
     }
 }

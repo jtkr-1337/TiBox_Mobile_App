@@ -35,22 +35,27 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     CalendarView calendar;
     TextView current_date, error;
     AppCompatButton[] days_of_week_buttons = new AppCompatButton[7];
-    DateSubjectGenerator[] subjects_list;
+    DateSubjectGenerator[] subjects_list = new DateSubjectGenerator[0];
 
     String date;
-
+    JSONArray lessons;
+    boolean api_status;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         v = inflater.inflate(R.layout.fragment_calendar, container, false);
-        initialMainVars();
+        try {
+            initialMainVars();
+        } catch (JSONException e) {
+            System.out.println("CalendarJSONError: " + e.toString());
+        }
         return v;
     }
 
 
-    private void initialMainVars(){
+    private void initialMainVars() throws JSONException {
         slidingPanel = v.findViewById(R.id.slidingPanel);
 
         subjectsListLayout = v.findViewById(R.id.subjectsList);
@@ -77,30 +82,42 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         MainActivity.api.getTimetableDay(this.date, new React(){
             @Override
             public void reaction(JSONObject data) throws JSONException {
-                JSONArray lessons = data.getJSONObject("response").getJSONArray("lessons");
+                lessons = data.getJSONObject("response").getJSONArray("lessons");
                 subjects_list = new DateSubjectGenerator[lessons.length()];
-                for (int i=0; i<lessons.length(); i++){
-                    JSONObject lesson = lessons.getJSONObject(i);
-
-                    String cab = lesson.getString("info");
-                    JSONArray up = lesson.getJSONObject("time").getJSONArray("up");
-                    JSONArray down = lesson.getJSONObject("time").getJSONArray("down");
-                    String time = String.valueOf(up.getInt(0)) + ":" + String.valueOf(up.getInt(1))
-                            + "-" + String.valueOf(down.getInt(0)) + ":" + String.valueOf(down.getInt(1));
-                    String prof = lesson.getJSONArray("teacher").getJSONObject(0).getString("name");
-                    String name = lesson.getString("name");
-
-                    subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), i, cab, time, prof, name);
-                }
+                api_status = true;
             }
 
             @Override
             public void FailedRequest(int status){
-                error.setVisibility(View.VISIBLE);
+                api_status = false;
             }
         });
+
+        Api_connector.wait_state_connection(100000);
+        if (api_status || subjects_list.length!=0){
+            createLessons();
+        } else{
+//            createLessons();
+            System.out.println(subjects_list.length);
+            error.setVisibility(View.VISIBLE);
+        }
     }
 
+    private void createLessons() throws JSONException {
+        for (int i=0; i<lessons.length(); i++){
+            JSONObject lesson = lessons.getJSONObject(i);
+
+            String cab = lesson.getString("info");
+            JSONArray up = lesson.getJSONObject("time").getJSONArray("up");
+            JSONArray down = lesson.getJSONObject("time").getJSONArray("down");
+            String time = String.valueOf(up.getInt(0)) + ":" + String.valueOf(up.getInt(1))
+                    + "-" + String.valueOf(down.getInt(0)) + ":" + String.valueOf(down.getInt(1));
+            String prof = lesson.getJSONArray("teacher").getJSONObject(0).getString("name");
+            String name = lesson.getString("name");
+
+            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), i, cab, time, prof, name);
+        }
+    }
     private void fillWeekButtonsList() {
         days_of_week_buttons[0] = v.findViewById(R.id.button1);
         days_of_week_buttons[1] = v.findViewById(R.id.button2);

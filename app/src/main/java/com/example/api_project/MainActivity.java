@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,7 +20,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        api = ((ApiMover) getIntent().getSerializableExtra("api")).getApi();
+        SharedPreferences sharedPref = this.getSharedPreferences("TiBox_Storage",Context.MODE_PRIVATE);
+        String token = sharedPref.getString("user_token", null);
+        System.out.println(token);
+
+        System.out.println("Token was taken from storage");
+        api = new Api_connector(token);
+        System.out.println(api.get_user_token());
+        Api_connector.wait_state_connection(10000);
+        System.out.println(api.get_user_token());
+        System.out.println("Connection was been restored");
 
         NonSwipeableViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setSwipeEnabled(false);
@@ -67,21 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
-                        int i = tab.getPosition();
-                        switch (i){
-                            case 0:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new settingsFragment()).commit();
-                                break;
-                            case 1:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new subjectsFragment()).commit();
-                                break;
-                            case 2:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new calendarFragment()).commit();
-                                break;
-                            case 3:
-                                getSupportFragmentManager().beginTransaction().replace(R.id.container, new profileFragment()).commit();
-                                break;
-                        }
                     }
                 });
 

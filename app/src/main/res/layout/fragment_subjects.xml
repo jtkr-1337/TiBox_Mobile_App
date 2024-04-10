@@ -27,7 +27,7 @@
         android:textSize="15dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/title"
-        android:visibility="gone"
+        android:visibility="invisible"
         />
 
     <LinearLayout

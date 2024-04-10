@@ -1,6 +1,8 @@
 package com.example.api_project;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
@@ -48,7 +50,11 @@ public class profileFragment extends Fragment implements View.OnClickListener {
         int id = v.getId();
 
         if (id==R.id.bLogout){
-            LoginActivity.logged_in = false;
+            SharedPreferences settings = getActivity().getSharedPreferences("TiBox_Storage", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.remove("user_token");
+            editor.apply();
+
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
         }else if (id==R.id.bChangeLogin){
