@@ -10,4 +10,5 @@
     <color name="calendar_current_day">#FF85C2E4</color>
     <color name="tabbar_color">#FFC6E3F2</color>
     <color name="link_text">#2452DA</color>
+    <color name="button_current">#FF4D7D96</color>
 </resources>

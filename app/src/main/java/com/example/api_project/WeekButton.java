@@ -19,7 +19,7 @@ public class WeekButton extends AppCompatButton {
     public int id;
     private String date;
     public calendarFragment parent;
-    private boolean status;
+    private boolean status, current = false;
 
     public WeekButton(@NonNull Context context) {
         super(context);
@@ -38,10 +38,16 @@ public class WeekButton extends AppCompatButton {
         if (status){
             this.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.round_button2));
             this.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        }else if (current){
+            this.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.round_button3));
+            this.setTextColor(ContextCompat.getColor(getContext(), R.color.button_current));
         }else {
             this.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.round_button1));
             this.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
         }
+    }
+    public void setCurrent(boolean s){
+        current = s;
     }
     public void setDate(String date){
         this.date = date;

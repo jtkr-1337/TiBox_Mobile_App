@@ -158,8 +158,10 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/error_msg">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/error_msg"
+            android:background="@drawable/calendar_fragment_bg"
+            >
             <LinearLayout
                 android:id="@+id/subjectsList"
                 android:layout_width="match_parent"

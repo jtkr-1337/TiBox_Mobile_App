@@ -108,6 +108,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         subjectsListLayout.removeAllViews();
         if (api_status || subjects_list.length!=0){
             createLessons();
+            error.setVisibility(View.INVISIBLE);
         } else{
             error.setVisibility(View.VISIBLE);
         }
@@ -186,37 +187,37 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         String str_date = date.toString();
         if (str_date.substring(0,3).equals("Mon")){
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }else if (str_date.substring(0,3).equals("Tue")){
             calendar.add(Calendar.DATE, -1);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }else if (str_date.substring(0,3).equals("Wed")){
             calendar.add(Calendar.DATE, -2);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }else if (str_date.substring(0,3).equals("Thu")){
             calendar.add(Calendar.DATE, -3);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }else if (str_date.substring(0,3).equals("Fri")){
             calendar.add(Calendar.DATE, -4);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }else if (str_date.substring(0,3).equals("Sat")){
             calendar.add(Calendar.DATE, -5);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }else if (str_date.substring(0,3).equals("Sun")){
             calendar.add(Calendar.DATE, -6);
             week[0] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[0].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }
 
         for (int i=1; i<7; i++){
             calendar.add(Calendar.DATE, 1);
             week[i] = Integer.parseInt(calendar.getTime().toString().substring(8,10)) + "\n";
-            days_of_week_buttons[i].setDate(calendar.get(Calendar.YEAR) + "-" + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            days_of_week_buttons[i].setDate(calendar.get(Calendar.YEAR) + "-" + rightTimeFormat(calendar.get(Calendar.MONTH) + 1) + "-" + rightTimeFormat(calendar.get(Calendar.DAY_OF_MONTH)));
         }
 
         days_of_week_buttons[0].setText(week[0]+"ПН");
@@ -301,6 +302,13 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         current_date.setText(date);
 
         this.date = year + "-" + month + "-" + day;
+
+        for (int i=0; i<7; i++){
+            if (days_of_week_buttons[i].getDate().equals(this.date)){
+                days_of_week_buttons[i].setCurrent(true);
+                days_of_week_buttons[i].setStatus(true);
+            }
+        }
     }
     private String getDateText(int year, int month, int dayOfMonth){
         String[] weeks = createWeekList();
