@@ -131,9 +131,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-
         Api_connector.wait_state_connection(10000);
-        System.out.println("");
+        System.out.println("- - - - >"+api_status);
         if (api_status){
             List<String> names = new ArrayList<>();
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_item);

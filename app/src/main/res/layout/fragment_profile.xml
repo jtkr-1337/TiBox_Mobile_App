@@ -47,14 +47,14 @@
                 android:src="@drawable/profile_image"
                 android:layout_marginBottom="10dp"
                 />
-            <TextView
-                android:layout_below="@+id/profileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Поставьте статусa"
-                android:layout_centerHorizontal="true"
-                android:textSize="12dp"
-                />
+<!--            <TextView-->
+<!--                android:layout_below="@+id/profileImage"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Поставьте статусa"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:textSize="12dp"-->
+<!--                />-->
 
         </RelativeLayout>
 
@@ -70,13 +70,13 @@
                 android:id="@+id/fstNameFieldLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-7dp"
+                android:layout_marginBottom="0dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 app:boxCornerRadiusTopStart="16dp"
                 app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="0dp"
-                app:boxCornerRadiusBottomEnd="0dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Имя"
-                    android:textColorHint="@color/white" />
+                    android:textColorHint="@color/white"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -94,28 +94,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                app:boxCornerRadiusTopStart="0dp"
-                app:boxCornerRadiusTopEnd="0dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
                 app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusBottomEnd="16dp"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sndNameField"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Фамилия"/>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/sndNameField"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Фамилия"/>-->
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/nameHint"
-                android:layout_below="@+id/sndNameFieldLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Укажите имя и загрузите фотографию профиля"
-                android:layout_centerHorizontal="true"
-                android:textSize="10dp"
-                />
+<!--            <TextView-->
+<!--                android:id="@+id/nameHint"-->
+<!--                android:layout_below="@+id/sndNameFieldLayout"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Укажите имя и загрузите фотографию профиля"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:textSize="10dp"-->
+<!--                />-->
 
         </RelativeLayout>
 
