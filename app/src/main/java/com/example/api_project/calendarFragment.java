@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
     RelativeLayout topPanel, bottomPanel;
     LinearLayout subjectsListLayout;
     CalendarView calendar;
-    TextView current_date, error;
+    TextView current_date, error, week;
     WeekButton[] days_of_week_buttons = new WeekButton[7];
     DateSubjectGenerator[] subjects_list = new DateSubjectGenerator[0];
 
@@ -49,13 +50,13 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         v = inflater.inflate(R.layout.fragment_calendar, container, false);
         try {
             initialMainVars();
-        } catch (JSONException e) {
+        } catch (JSONException | ParseException e) {
             System.out.println("CalendarJSONError: " + e.toString());
         }
         return v;
     }
 
-    private void initialMainVars() throws JSONException {
+    private void initialMainVars() throws JSONException, ParseException {
         slidingPanel = v.findViewById(R.id.slidingPanel);
         slidingPanel.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
 
@@ -70,6 +71,7 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         }
 
         error = v.findViewById(R.id.error_msg);
+        week = v.findViewById(R.id.week);
 
         current_date = v.findViewById(R.id.date);
         current_date.setOnClickListener(this);
@@ -83,7 +85,9 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
         getLessonInfo(this.date);
     }
 
-    private void getLessonInfo(String date) throws JSONException {
+    private void getLessonInfo(String date) throws JSONException, ParseException {
+        setWeekNum(date);
+
         MainActivity.api.getTimetableDay(date, new React(){
             @Override
             public void reaction(JSONObject data) throws JSONException {
@@ -108,6 +112,19 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
             error.setVisibility(View.VISIBLE);
         }
         v.invalidate();
+    }
+
+    private void setWeekNum(String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = sdf.parse(date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        int week = calendar.get(Calendar.WEEK_OF_YEAR)%2;
+        if (week==0){
+            this.week.setText("Нижняя неделя");
+        }else {
+            this.week.setText("Верхняя неделя");
+        }
     }
 
     private void createLessons() throws JSONException {
@@ -226,12 +243,15 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
             } else {
                 for (int i=0; i<7; i++){
                     if (id == days_of_week_buttons[i].id){
+                        days_of_week_buttons[i].setStatus(true);
                         try {
                             getLessonInfo(days_of_week_buttons[i].getDate());
                             current_date.setText(days_of_week_buttons[i].getAltDate());
-                        } catch (JSONException e) {
+                        } catch (JSONException | ParseException e) {
                             System.out.println("weekButtonJSONError: " + e.toString());
                         }
+                    }else{
+                        days_of_week_buttons[i].setStatus(false);
                     }
                 }
 

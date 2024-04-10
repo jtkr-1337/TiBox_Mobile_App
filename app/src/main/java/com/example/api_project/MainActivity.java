@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
+
+        tabs.setScrollPosition(2,0f,true);
+        viewPager.setCurrentItem(2);
+
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onTabReselected(TabLayout.Tab tab) {
+
                     }
                 });
 
@@ -84,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
         tabClear();
 
         TabLayout tabs = findViewById(R.id.sliding_tabs);
-        TabLayout.Tab tab = tabs.getTabAt(0);
+        TabLayout.Tab tab = tabs.getTabAt(2);
 
-        if (tab != null) tab.setCustomView(R.layout.tab_settings_on);
+        if (tab != null) tab.setCustomView(R.layout.tab_calendar_on);
     }
     private void tabClear(){
         TabLayout tabs = findViewById(R.id.sliding_tabs);

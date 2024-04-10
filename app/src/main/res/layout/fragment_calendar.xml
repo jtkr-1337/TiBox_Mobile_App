@@ -28,7 +28,7 @@
                 android:text="Верхняя неделя"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp"
-                android:layout_alignLeft="@+id/buttons"
+                android:layout_marginStart="20dp"
                 android:fontFamily="@font/khularegular"
                 android:textColor="@color/black"
                 />

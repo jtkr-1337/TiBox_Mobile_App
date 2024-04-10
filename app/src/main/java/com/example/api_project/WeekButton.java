@@ -7,7 +7,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ public class WeekButton extends AppCompatButton {
     public int id;
     private String date;
     public calendarFragment parent;
+    private boolean status;
 
     public WeekButton(@NonNull Context context) {
         super(context);
@@ -30,6 +33,16 @@ public class WeekButton extends AppCompatButton {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setStatus(boolean s){
+        status = s;
+        if (status){
+            this.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.round_button2));
+            this.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        }else {
+            this.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.round_button1));
+            this.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+        }
+    }
     public void setDate(String date){
         this.date = date;
     }
