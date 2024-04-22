@@ -52,6 +52,7 @@ public class Api_connector {
                 System.out.println("Не удалось найти пользователя");
             }
         });
+        Api_connector.wait_state_connection(10000);
     }
 
     /*-------------- SERVER METHODS --------------*/
@@ -382,6 +383,7 @@ public class Api_connector {
         while(Api_connector.stateConnection == StateConnection.empty ||
                 Api_connector.stateConnection == StateConnection.processing){
             if (System.currentTimeMillis()-timestampInMillis >= milliseconds) break;
+            System.out.print("");
         }
     }
 }

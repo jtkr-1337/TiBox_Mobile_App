@@ -22,7 +22,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 return new calendarFragment();
             case 3:
                 return new profileFragment();
-            case 0:
             default:
                 return new settingsFragment();
         }

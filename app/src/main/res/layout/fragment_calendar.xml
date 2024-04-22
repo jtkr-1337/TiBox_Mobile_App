@@ -48,8 +48,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button1"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:background="@drawable/round_button1"
@@ -59,8 +59,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button2"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:background="@drawable/round_button1"
@@ -69,8 +69,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button3"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:background="@drawable/round_button1"
@@ -79,8 +79,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button4"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
@@ -90,8 +90,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button5"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
@@ -101,8 +101,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button6"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
@@ -112,8 +112,8 @@
 
                 <com.example.api_project.WeekButton
                     android:id="@+id/button7"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
                     android:layout_weight="1"
@@ -160,16 +160,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/error_msg"
-            android:background="@drawable/calendar_fragment_bg"
-            >
+            android:background="@drawable/calendar_fragment_bg">
+
             <LinearLayout
                 android:id="@+id/subjectsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:divider="@drawable/divider"
+                android:background="@drawable/side_stroke_f_white"
+                android:orientation="vertical"
                 android:showDividers="middle"
-                >
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:padding="2dp">
+
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>

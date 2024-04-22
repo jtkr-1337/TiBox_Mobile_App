@@ -9,7 +9,7 @@ public class Token {
     private final SharedPreferences cache_storage;
     public Token(AppCompatActivity activity){
         this.cache_storage = activity.getSharedPreferences(
-                String.valueOf(R.string.cache_token_storage),
+                activity.getResources().getString(R.string.cache_token_storage),
                 Context.MODE_PRIVATE
         );
     }

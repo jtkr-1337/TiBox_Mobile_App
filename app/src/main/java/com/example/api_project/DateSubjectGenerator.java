@@ -54,6 +54,46 @@ public class DateSubjectGenerator implements View.OnClickListener {
         prof.setText(str_prof);
         leftPanel.setOnClickListener(this);
     }
+    public DateSubjectGenerator(LayoutInflater l, View v, SlidingUpPanelLayout p, Activity a, String str_name){
+        this.a = a;
+        panel = p;
+        l.inflate(R.layout.template_subject_calendar, (ViewGroup) v);
+        rl = v.findViewById(R.id.subject);
+        float scale = a.getResources().getDisplayMetrics().density;
+        int px = (int) (50 * scale + 0.5f);
+        rl.getLayoutParams().height = px;
+        this.id = id_const + id;
+        rl.setId(this.id);
+
+        leftPanel = (LinearLayout) rl.getChildAt(0);
+        leftPanel.getLayoutParams().width = leftPanel.getLayoutParams().width / 5;
+//        leftPanel.setOnClickListener(this);
+
+//        cab = (TextView) leftPanel.getChildAt(0);
+//        if (str_cab.length() > 8){
+//            cab.setText(str_cab.substring(0,9));
+//        }else {
+//            cab.setText(str_cab);
+//        }
+//        cab.setOnClickListener(this);
+//        time = (TextView) leftPanel.getChildAt(1);
+//        time.setText(str_time);
+//        time.setOnClickListener(this);
+
+
+        centerPanel = (LinearLayout) rl.getChildAt(1);
+//        centerPanel.setOnClickListener(this);
+
+        subj = (TextView) centerPanel.getChildAt(0);
+        subj.setText(str_name);
+//        subj.setOnClickListener(this);
+        prof = (TextView) centerPanel.getChildAt(1);
+//        prof.setText(str_prof);
+//        leftPanel.setOnClickListener(this);
+
+        leftPanel.setVisibility(View.INVISIBLE);
+        prof.setVisibility(View.INVISIBLE);
+    }
 
     @Override
     public void onClick(View v) {

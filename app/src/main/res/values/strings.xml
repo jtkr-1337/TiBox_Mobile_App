@@ -16,4 +16,5 @@
     <string name="help">Если случилась какая-то проблема прошу не удалять кеш, а сообщить нам по любому удобному вам способу:\n
                      - email: owner@arefaste.ru\n
                      - telegram: https://t.me/arefaste</string>
+    <string name="empty_lessons_text">✨В этот день нет пар✨</string>
 </resources>

@@ -4,11 +4,11 @@
     >
     <item>
         <shape>
-            <solid android:color="#C6E3F2"/>
+            <solid android:color="#FFFFFF"/>
             <stroke
-                android:width="0dp"
-                android:color="#6099B6"/>
-            <corners android:radius="8dp"/>
+                android:width="2dp"
+                android:color="#393939"/>
+            <corners android:radius="12dp"/>
         </shape>
     </item>
 </selector>

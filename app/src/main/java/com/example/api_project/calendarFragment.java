@@ -143,8 +143,21 @@ public class calendarFragment extends Fragment implements View.OnClickListener, 
             String prof = lesson.getJSONArray("teacher").getJSONObject(0).getString("name");
             String name = lesson.getString("name");
 
-            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(), subjectsListLayout, slidingPanel, getActivity(), id, cab, time, prof, name);
+            subjects_list[i] = new DateSubjectGenerator(getLayoutInflater(),
+                    subjectsListLayout,
+                    slidingPanel,
+                    getActivity(),
+                    id,
+                    cab,
+                    time,
+                    prof,
+                    name);
         }
+        if (lessons.length() == 0) new DateSubjectGenerator(getLayoutInflater(),
+                subjectsListLayout,
+                slidingPanel,
+                getActivity(),
+                getResources().getString(R.string.empty_lessons_text) );
     }
     private String rightTimeFormat(int t){
         String tru_t;

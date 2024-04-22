@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
     public static Api_connector api;
+    NonSwipeableViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
         api = new Api_connector(userToken);
         System.out.println(api.get_user_token());
         Api_connector.wait_state_connection(10000);
-        System.out.println(api.get_user_token());
         System.out.println("Connection was been restored");
 
-        NonSwipeableViewPager viewPager = findViewById(R.id.viewpager);
+        System.out.println(api.get_user_token());
+
+        viewPager = findViewById(R.id.viewpager);
         viewPager.setSwipeEnabled(false);
         TabLayout tabs = findViewById(R.id.sliding_tabs);
 
@@ -36,53 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         tabs.setScrollPosition(2,0f,true);
+
+        tabs.addOnTabSelectedListener(this);
         viewPager.setCurrentItem(2);
-
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        tabClear();
-                        int i = tab.getPosition();
-                        switch (i){
-                            case 0:
-                                tab.setCustomView(R.layout.tab_settings_on);
-                                break;
-                            case 1:
-                                tab.setCustomView(R.layout.tab_subjects_on);
-                                break;
-                            case 2:
-                                tab.setCustomView(R.layout.tab_calendar_on);
-                                break;
-                            case 3:
-                                tab.setCustomView(R.layout.tab_profile_on);
-                                break;
-                        }
-                        viewPager.setCurrentItem(i);
-                    }
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-                        tabClear();
-                        int i = tab.getPosition();
-                        switch (i){
-                            case 0:
-                                tab.setCustomView(R.layout.tab_settings_off);
-                                break;
-                            case 1:
-                                tab.setCustomView(R.layout.tab_subjects_off);
-                                break;
-                            case 2:
-                                tab.setCustomView(R.layout.tab_calendar_off);
-                                break;
-                            case 3:
-                                tab.setCustomView(R.layout.tab_profile_off);
-                                break;
-                        }
-                    }
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-
-                    }
-                });
 
         tabSetting();
     }
@@ -94,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout.Tab tab = tabs.getTabAt(2);
 
         if (tab != null) tab.setCustomView(R.layout.tab_calendar_on);
+        tab.select();
     }
     private void tabClear(){
         TabLayout tabs = findViewById(R.id.sliding_tabs);
@@ -109,5 +69,49 @@ public class MainActivity extends AppCompatActivity {
 
         tab = tabs.getTabAt(3);
         if (tab != null) tab.setCustomView(R.layout.tab_profile_off);
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        tabClear();
+        int i = tab.getPosition();
+        switch (i){
+            case 0:
+                tab.setCustomView(R.layout.tab_settings_on);
+                break;
+            case 1:
+                tab.setCustomView(R.layout.tab_subjects_on);
+                break;
+            case 2:
+                tab.setCustomView(R.layout.tab_calendar_on);
+                break;
+            case 3:
+                tab.setCustomView(R.layout.tab_profile_on);
+                break;
+        }
+        viewPager.setCurrentItem(i);
+    }
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+        tabClear();
+        int i = tab.getPosition();
+        switch (i){
+            case 0:
+                tab.setCustomView(R.layout.tab_settings_off);
+                break;
+            case 1:
+                tab.setCustomView(R.layout.tab_subjects_off);
+                break;
+            case 2:
+                tab.setCustomView(R.layout.tab_calendar_off);
+                break;
+            case 3:
+                tab.setCustomView(R.layout.tab_profile_off);
+                break;
+        }
+    }
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+        System.out.println("huy");
     }
 }
